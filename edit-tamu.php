@@ -1,9 +1,10 @@
 <?php
 include_once('templates/header.php');
+require_once('function.php');
 
 //jika ada id_tamu di URL
-if (isset($_GET['id_tamu'])) {
-    $id_tamu = $_GET['id_tamu'];
+if (isset($_GET['id'])) {
+    $id_tamu = $_GET['id'];
     //ambil data tamu yang sesuai dengan id_tamu
     $dataTamu = query("SELECT * FROM buku_tamu WHERE id_tamu = $id_tamu")[0];
 }
@@ -52,26 +53,26 @@ if (isset($_GET['id_tamu'])) {
                 </div>
                 <div class="form-group row">
                     <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" id="alamat" name="alamat"><?= $data['alamat'] ?></textarea>
+                    <div class="col-sm-8">  
+                        <textarea class="form-control" id="alamat" name="alamat"><?= $dataTamu['alamat'] ?></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="no_hp" class="col-sm-3 col-form-label">No. Telepon</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $data['no_hp'] ?>">
+                        <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $dataTamu['no_hp'] ?>">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="bertemu" class="col-sm-3 col-form-label">Bertemu dg.</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="bertemu" name="bertemu" value="<?= $data['bertemu'] ?>">
+                        <input type="text" class="form-control" id="bertemu" name="bertemu" value="<?= $dataTamu['bertemu'] ?>">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="kepentingan" class="col-sm-3 col-form-label">Kepentingan</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="kepentingan" name="kepentingan" value="<?= $data['kepentingan'] ?>">
+                        <input type="text" class="form-control" id="kepentingan" name="kepentingan" value="<?= $dataTamu['kepentingan'] ?>">
                     </div>
                 </div>
         </div>
