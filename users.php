@@ -78,7 +78,7 @@ include_once('templates/header.php');
     $kodeTamu = $data['kodeTerbesar'];
 
     //mengambil angka dari kode terbesar, menggunakan fungsi substr dan diubah ke integer dengan (int)
-    $urutan = (int) substr($kodeuser, 3, 2);
+    $urutan = (int) substr($kodeTamu, 3, 2);
 
     //nomor yang diambil akan ditambah 1 untuk menentukan nomor urut berikutnya
     $urutan++;
@@ -122,23 +122,11 @@ include_once('templates/header.php');
                                     <option value="operator">Operator</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="bertemu" class="col-sm-3 col-form-label">Bertemu dg.</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="bertemu" name="bertemu">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kepentingan" class="col-sm-3 col-form-label">Kepentingan</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="kepentingan" name="kepentingan">
-                            </div>
-                        </div>
+                        </div>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                    <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                    <a href="users.php"><input type="submit" class="btn btn-primary" name="simpan" value="Simpan"></a>
                 </div>
                 </form>
             </div>

@@ -62,24 +62,56 @@ function ubah_tamu($data)
 function hapus_tamu($id)
 {
     global $koneksi;
-    $query="DELETE FROM buku_tamu WHERE id_tamu = '$id'";
+    $query = "DELETE FROM buku_tamu WHERE id_tamu = '$id'";
     mysqli_query($koneksi, $query);
     return mysqli_affected_rows($koneksi);
 }
 
-function tambah_user($data){
+function tambah_user($data)
+{
     global $koneksi;
 
-    $kode=htmlspecialchars($data["id_user"]);
-    $username=htmlspecialchars($data["username"]);
-    $password=htmlspecialchars($data["password"]);
-    $user_role=htmlspecialchars($data["USER_role"]);
+    // Mengambil data dari array
+    $username = htmlspecialchars($data["username"]);
+    $password = htmlspecialchars($data["password"]);
+    $user_role = htmlspecialchars($data["user_role"]);
 
-    // enkripsi password dengan password_hash
-    $password_hash = password_hash($password,PASSWORD_DEFAULT);
+    // Enkripsi password dengan password_hash
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO uSERS VALUES ('$kode','$username','$password_hash','$user_role')";
+    // Cek apakah username sudah ada di database
+    $existingUserQuery = "SELECT * FROM users WHERE username = '$username'";
+    $existingUserResult = mysqli_query($koneksi, $existingUserQuery);
+    if (mysqli_num_rows($existingUserResult) > 0) {
+        echo "Username sudah ada.";
+        return;
+    }
 
+    // Query untuk menambahkan pengguna baru tanpa id_user
+    $query = "INSERT INTO users (username, password, user_role) VALUES ('$username', '$password_hash', '$user_role')";
+
+    // Menjalankan query dan memeriksa kesalahan
+    if (mysqli_query($koneksi, $query)) {
+        echo "Error: " . mysqli_error($koneksi);
+    }
+
+    return mysqli_affected_rows($koneksi);
+}
+
+
+//function ubah data tamu
+function ubah_user($data)
+{
+    global $koneksi;
+
+    $kode = htmlspecialchars($data["id_user"]);
+    $username = htmlspecialchars($data["username"]);
+    $user_role = htmlspecialchars($data["user_role"]);
+
+    $query = "UPDATE users SET
+                username = '$username',
+                user_role = '$user_role'
+                WHERE id_user = $kode";
     mysqli_query($koneksi, $query);
 
     return mysqli_affected_rows($koneksi);
