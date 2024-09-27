@@ -72,6 +72,7 @@ function tambah_user($data)
     global $koneksi;
 
     // Mengambil data dari array
+    $kode = htmlspecialchars($data["id_user"]);
     $username = htmlspecialchars($data["username"]);
     $password = htmlspecialchars($data["password"]);
     $user_role = htmlspecialchars($data["user_role"]);
@@ -88,14 +89,14 @@ function tambah_user($data)
     }
 
     // Query untuk menambahkan pengguna baru tanpa id_user
-    $query = "INSERT INTO users (username, password, user_role) VALUES ('$username', '$password_hash', '$user_role')";
+    $query = "INSERT INTO users VALUES ('$kode', '$username', '$password_hash', '$user_role')";
 
     // Menjalankan query dan memeriksa kesalahan
     if (mysqli_query($koneksi, $query)) {
         echo "Error: " . mysqli_error($koneksi);
     }
 
-    return mysqli_affected_rows($koneksi);
+    return mysqli_affected_rows($koneksi);  
 }
 
 
