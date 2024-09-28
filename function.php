@@ -96,7 +96,7 @@ function tambah_user($data)
         echo "Error: " . mysqli_error($koneksi);
     }
 
-    return mysqli_affected_rows($koneksi);  
+    return mysqli_affected_rows($koneksi);
 }
 
 
