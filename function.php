@@ -19,7 +19,7 @@ function tambah_tamu($data)
 {
     global $koneksi;
 
-    $kode           = htmlspecialchars($data["nama_tamu"]);
+    $kode           = htmlspecialchars($data["id_tamu"]);
     $tanggal        = date("Y-m-d");
     $nama_tamu      = htmlspecialchars($data["nama_tamu"]);
     $alamat         = htmlspecialchars($data["alamat"]);
@@ -52,7 +52,7 @@ function ubah_tamu($data)
                 no_hp = '$no_hp',
                 bertemu = '$bertemu',
                 kepentingan = '$kepentingan'
-                WHERE id_tamu = $id";
+                WHERE id_tamu = '$id'";
     mysqli_query($koneksi, $query);
 
     return mysqli_affected_rows($koneksi);
@@ -112,18 +112,20 @@ function ubah_user($data)
     $query = "UPDATE users SET
                 username = '$username',
                 user_role = '$user_role'
-                WHERE id_user = $kode";
+                WHERE id_user = '$kode'";
     mysqli_query($koneksi, $query);
 
     return mysqli_affected_rows($koneksi);
 }
 
 //functiom hapus data user
-function hapus_user($id)
-{
+function hapus_user($id) {
     global $koneksi;
+
     $query = "DELETE FROM users WHERE id_user = '$id'";
+
     mysqli_query($koneksi, $query);
+    
     return mysqli_affected_rows($koneksi);
 }
 

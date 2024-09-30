@@ -30,7 +30,8 @@ include_once('templates/header.php');
     <!-- DataTales Tambah -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <button type="button" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#TambahModal">
+            <button type="button" class="btn btn-primary btn-icon-split"
+             data-toggle="modal" data-target="#tambahModal">
                 <span class="icon text-white-50">
                     <i class="fa fa-plus"></i>
                 </span>
@@ -99,7 +100,7 @@ include_once('templates/header.php');
     ?>
 
     <!-- Modal -->
-    <div class="modal fade" id="TambahModal" tabindex="-1" aria-labelledby="TambahModalLabel" aria-hidden="true">
+    <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="TambahModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
