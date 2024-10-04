@@ -3,29 +3,30 @@
 session_start();
 
 //cek bila ada user yang sudah login maka akan redirect ke halaman dashboard
-if(isset($_SESSION["login"])) {
+if (isset($_SESSION["login"])) {
     header("Location: index.php");
 }
 
-if(password_verify($password, $row['password'])) {
-    // set session
-    $_SESSION["login"] = true;
-    $_SESSION["username"] = $username;
-}
-
+//panggil file koneksi.php
 require 'koneksi.php';
-if(isset($_POST['login'])) {
+
+// cek bila ada tombol login yang ditekan
+if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     $result = mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username'");
 
     // cek apakah ada username
-    if(mysqli_num_rows($result) == 1) {
+    if (mysqli_num_rows($result) == 1) {
         // cek apakah passwordnya benar
         $row = mysqli_fetch_assoc($result);
 
-        if(password_verify($password, $row['password'])) {
+        if (password_verify($password, $row['password'])) {
+            // set session
+            $_SESSION["login"] = true;
+            $_SESSION["username"] = $username;
+            $_SESSION["role"] = $row['user_role'];
             // login berhasil
             header("Location: index.php");
             exit;
@@ -64,11 +65,11 @@ if(isset($_POST['login'])) {
 
     <div class="container">
 
-        <?php if(isset($error)) : ?>
+        <?php if (isset($error)) : ?>
             <div class="alert alert-danger" role="alert">
-                Username atau passwrd salah!
+                Username atau password salah!
             </div>
-        <?php 
+        <?php
         endif; ?>
 
         <!-- Outer Row -->

@@ -1,6 +1,11 @@
 <?php
 include_once('templates/header.php');
 require_once('function.php');
+
+if(isset($_SESSION['role']) && $_SESSION['role'] != 'operator'){
+    echo "<script>alert('Anda bukan operator!')</script>";
+    echo "<script>window.location='index.php'</script>";
+}
 ?>
 
 <!-- Begin Page Content -->

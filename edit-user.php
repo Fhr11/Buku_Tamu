@@ -59,21 +59,21 @@ if (isset($_GET['id'])) {
                         </select>
                     </div>
                 </div>
-        <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-8 d-flex justify-content-end">
-            </div>
-            <a type="button" class="btn btn-danger btn-icon-split" href="users.php">
-                <span class="icon text-white-50">
-                    <i class="fas fa-chevron-left"></i>
-                </span>
-                <span class="text">Kembali</span>
-            </a>
-            <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                <div class="form-group row">
+                    <label for="" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-8 d-flex justify-content-end">
+                    </div>
+                    <a type="button" class="btn btn-danger btn-icon-split" href="users.php">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span class="text">Kembali</span>
+                    </a>
+                    <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-</form>
 </div>
 </div>
 </div>

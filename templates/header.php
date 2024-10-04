@@ -51,17 +51,7 @@ if (!isset($_SESSION["login"])) {
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <?php
-            //cek apabila ada user login maka tampilkan logout
-            if(isset($_SESSION['login']));
-            ?>
-            <?php if(isset($_SESSION['login'])):?>
-            <li class="nav-item">
-                <a class="nav-link" href="logout.php">
-                    <i class="fas fa-fw fa-power-off"></i>
-                    <span>Logout</span></a>
-            </li>
-            <?php endif;?>
+          
             <li class="nav-item">
                 <a class="nav-link" href="buku-tamu.php">
                     <i class="fas fa-fw fa-book-open"></i>
@@ -77,6 +67,18 @@ if (!isset($_SESSION["login"])) {
                     <i class="fas fa-fw fa-users"></i>
                     <span>User</span></a>
             </li>
+
+              <?php
+            //cek apabila ada user login maka tampilkan logout
+            if(isset($_SESSION['login']));
+            ?>
+            <?php if(isset($_SESSION['login'])):?>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">
+                    <i class="fas fa-fw fa-power-off"></i>
+                    <span>Logout</span></a>
+            </li>
+            <?php endif;?>
 
             <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
@@ -148,7 +150,7 @@ if (!isset($_SESSION["login"])) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username']?></span>
                                 <img class="img-profile rounded-circle"
                                     src="assets/img/undraw_profile.svg">
                             </a>

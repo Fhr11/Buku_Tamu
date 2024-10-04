@@ -1,7 +1,14 @@
 <?php
 require_once('function.php');
 include_once('templates/header.php');
+
+if (isset($_SESSION['role']) && $_SESSION['role'] != 'admin') {
+    echo "<script>alert('Anda bukan admin!')</script>";
+    echo "<script>window.location='index.php'</script>";
+}
 ?>
+
+<script></script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -23,25 +30,24 @@ include_once('templates/header.php');
             <div class="alert alert-danger" role="alert">
                 Data gagal disimpan!
             </div>
-            <?php
-            }
-        } else if (isset($_POST['ganti_password'])){
-            if (ganti_password($_POST)>0) {
-            ?>
-                <div class="alert alert-success" role="alert">
-                    Password berhasil diubah!
-                </div>    
-            <?php
-            }else {
-                ?>
-                <div class="alert alert-danger" role="alert">
-                    Passowrd gagal diubah!
-                </div>
-                <?php
-            }
+        <?php
         }
-        
+    } else if (isset($_POST['ganti_password'])) {
+        if (ganti_password($_POST) > 0) {
         ?>
+            <div class="alert alert-success" role="alert">
+                Password berhasil diubah!
+            </div>
+        <?php
+        } else {
+        ?>
+            <div class="alert alert-danger" role="alert">
+                Password gagal diubah!
+            </div>
+    <?php
+        }
+    }
+    ?>
 
     <!-- DataTales Tambah -->
     <div class="card shadow mb-4">
@@ -68,7 +74,7 @@ include_once('templates/header.php');
                         <?php
                         //penomoran auto increment
                         $no = 1;
-                        //query untuk memanggil semua data dari tabel buku tamu
+                        //query untuk memanggil semua data dari tabel users
                         $users = query("SELECT * FROM users");
                         foreach ($users as $user) : ?>
                             <tr>
@@ -94,22 +100,65 @@ include_once('templates/header.php');
     //mengambil data dari tabel dengan kode terbesar
     $query = mysqli_query($koneksi, "SELECT max(id_users) as kodeTerbesar FROM users");
     $data = mysqli_fetch_array($query);
-    $kodeTamu = $data['kodeTerbesar'];
+    $kodeuser = $data['kodeTerbesar'];
 
     //mengambil angka dari kode terbesar, menggunakan fungsi substr dan diubah ke integer dengan (int)
-    $urutan = (int) substr($kodeTamu, 3, 2);
+    $urutan = (int) substr($kodeuser, 3, 2);
 
     //nomor yang diambil akan ditambah 1 untuk menentukan nomor urut berikutnya
     $urutan++;
 
-    //membuat kode tamu baru
-    //string sprintf("%03s", $urutan); berfungsi untuk membuat string menjadi 3 karakter
+    //membuat kode user baru
     $huruf = "usr";
     $kodeuser = $huruf . sprintf("%02s", $urutan);
     ?>
 
-    <!-- Modal -->
-    <div class="modal fade" id="gantiPassword" tabindex="-1" aria-labelledby="gantiPassword" aria-hidden="true">
+    <!-- Modal Tambah Data User -->
+    <div class="modal fade" id="TambahModal" tabindex="-1" aria-labelledby="TambahModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TambahModalLabel">Tambah Data User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="">
+                        <input type="hidden" name="id_user" id="id_user" value="<?= $kodeuser ?>">
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-3 col-form-label">Username</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="username" name="username">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="user_role" class="col-sm-3 col-form-label">User Role</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="user_role" name="user_role">
+                                    <option value="admin">Administrator</option>
+                                    <option value="operator">Operator</option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                    <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ganti Password -->
+    <div class="modal fade" id="gantiPassword" tabindex="-1" aria-labelledby="gantiPasswordLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -138,6 +187,8 @@ include_once('templates/header.php');
     </div>
 
 </div>
+
+
 <!-- /.container-fluid -->
 
 <?php

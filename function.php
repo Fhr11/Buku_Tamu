@@ -67,8 +67,7 @@ function hapus_tamu($id)
     return mysqli_affected_rows($koneksi);
 }
 
-function tambah_user($data)
-{
+function tambah_user($data){
     global $koneksi;
 
     // Mengambil data dari array
@@ -80,24 +79,14 @@ function tambah_user($data)
     // Enkripsi password dengan password_hash
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Cek apakah username sudah ada di database
-    $existingUserQuery = "SELECT * FROM users WHERE username = '$username'";
-    $existingUserResult = mysqli_query($koneksi, $existingUserQuery);
-    if (mysqli_num_rows($existingUserResult) > 0) {
-        echo "Username sudah ada.";
-        return;
-    }
-
-    // Query untuk menambahkan pengguna baru tanpa id_user
     $query = "INSERT INTO users VALUES ('$kode', '$username', '$password_hash', '$user_role')";
 
-    // Menjalankan query dan memeriksa kesalahan
-    if (mysqli_query($koneksi, $query)) {
-        echo "Error: " . mysqli_error($koneksi);
-    }
+    mysqli_query($koneksi, $query);
 
     return mysqli_affected_rows($koneksi);
-}
+
+    }
+
 
 
 //function ubah data tamu
